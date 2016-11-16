@@ -28,7 +28,7 @@ class People:
 
     def initUndefinedLike(self):
         for i in range(0,len(self.like)):
-            if(self.like[i]!=0):
+            if(self.like[i] == 0):
                 self.like[i] = r.randint(0,10)
 
     def isEngaged(self):
@@ -47,7 +47,7 @@ class People:
         if self.ego<10 and r.randint(0,100)>80:
             dif = self.like[b.id]-self.ego
             dif = max(1,dif)
-            self.ego = self.ego + r.randint(1,dif)
+            self.ego = self.ego + r.randint(0,dif)
         if self.ego > 10:
             self.ego = 10
 
@@ -55,8 +55,8 @@ class People:
         if self.init<10 and r.randint(0,100)>80:
             self.init = self.init + 1
 
-    def decEgo(self):
-        if self.ego>0 and r.randint(0,100)>80:
+    def decEgo(self,prob):
+        if self.ego>0 and r.randint(0,100)>prob:
             self.ego = self.ego - 1
 
     def decInit(self):
@@ -88,7 +88,7 @@ class People:
                 b.pendingOffer.append(self.id)
             else:
                 b.incEgo(self)
-                self.decEgo()
+                self.decEgo(70)
         else:
             pass
 

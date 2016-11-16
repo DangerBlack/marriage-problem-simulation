@@ -19,3 +19,8 @@ sm = SimulationCore(100,60)
 
 sm.runSimulation()
 print(sm.pm)
+
+for p in sm.pm.people:
+    if not p.isEngaged():
+        print(p)
+        print(p.like)

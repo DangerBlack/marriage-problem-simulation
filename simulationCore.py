@@ -53,7 +53,9 @@ class SimulationCore:
                 p.incInit()
 
             if not p.isEngaged() and ((tick - p.lastRelation) %  6) == 0: #piu di sei mesi che non frequenti ragazze/i
-                p.decEgo()
+                #p.decEgo()
+                p.decEgo(0)
+                p.decEgo(25)
             else:
                 if p.isEngaged() and ((tick - p.lastRelation) %  6) == 0: #più di sei mesi che stai con la stessa/o
                     p.decInit()
@@ -70,7 +72,5 @@ class SimulationCore:
                 alive = alive + 1
                 if not p.isEngaged():
                     single = single +1
-
-
 
         print('Number of single : '+str(single)+" / "+str(alive))
