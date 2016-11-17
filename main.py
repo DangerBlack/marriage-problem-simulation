@@ -20,27 +20,30 @@ sm = SimulationCore(100,60)
 sm.runSimulation()
 print(sm.pm)
 
+print("--------------------------------------------------------------------")
 print("SHAME LIST")
 for p in sm.pm.people:
     if not p.isEngaged():
         print(p)
         print("N partner: "+str(len(p.partnerList)))
-        print(p.partnerList)
+        #print(p.partnerList)
         print("Mesi di divertimento: "+str(sum(p.yearOfFun)))
-        print(p.yearOfFun)
-        print(p.like)
+        #print(p.yearOfFun)
+        #print(p.like)
+        print("--------------------------------------------------------------------")
 
 
 print("WINNER LIST ~ LONG WEDDING")
 winner =[]
 for p in sm.pm.people:
     if p.isEngaged():
-        winner.append([sm.end-p.lastRelation,p.id])
+        winner.append([max(p.yearOfFun),p.id])
 
 winner.sort(key=lambda x: x[0],reverse=True)
 
 for i in range(0,20):
-    print(str(winner[i][1])+" fidanzato da: "+str(int(winner[i][0]/12))+" anni")
+    print(str(winner[i][1])+" fidanzato per: "+str(int(winner[i][0]/12))+" anni")
     print(sm.pm.people[winner[i][1]])
     print("N partner: "+str(len(p.partnerList)))
     print("Mesi di divertimento: "+str(sum(p.yearOfFun)))
+    print("--------------------------------------------------------------------")
