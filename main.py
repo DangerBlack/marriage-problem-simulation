@@ -24,7 +24,12 @@ print("SHAME LIST")
 for p in sm.pm.people:
     if not p.isEngaged():
         print(p)
+        print("N partner: "+str(len(p.partnerList)))
+        print(p.partnerList)
+        print("Mesi di divertimento: "+str(sum(p.yearOfFun)))
+        print(p.yearOfFun)
         print(p.like)
+
 
 print("WINNER LIST ~ LONG WEDDING")
 winner =[]
@@ -34,6 +39,8 @@ for p in sm.pm.people:
 
 winner.sort(key=lambda x: x[0],reverse=True)
 
-for i in range(0,10):
+for i in range(0,20):
     print(str(winner[i][1])+" fidanzato da: "+str(int(winner[i][0]/12))+" anni")
     print(sm.pm.people[winner[i][1]])
+    print("N partner: "+str(len(p.partnerList)))
+    print("Mesi di divertimento: "+str(sum(p.yearOfFun)))

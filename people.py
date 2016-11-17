@@ -23,6 +23,9 @@ class People:
         self.pendingOffer = []
         self.deadTick = r.randint(35*12,90*12)
 
+        self.yearOfFun = []
+        self.partnerList = []
+
     def initLike0(self,n):
         self.like=[0] * n
 
