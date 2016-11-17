@@ -35,33 +35,26 @@ class SimulationCore:
                         if self.pm.people[q.engaged].engaged == q.id:
                             self.pm.people[q.engaged].engaged = -1 #dico a lui che ora è single
                             old = self.pm.people[q.engaged]
-                            if(len(old.partnerList)>0 and old.partnerList[-1]!=q.id):
-                                old.partnerList.append(q.id)
-                                old.yearOfFun.append(tick-old.lastRelation)
-                            else:
-                                if(len(old.partnerList)==0):
-                                    old.partnerList.append(q.id)
-                                    old.yearOfFun.append(tick-old.lastRelation)# cosi se uno si molla e dopo 20 anni si fidanza guadagna 20 anni di fun
                         else:
                             print("lui non sta con me "+str(q.id)+" "+str(self.pm.people[q.engaged].id))
                     if p.isEngaged:
                         old = self.pm.people[p.engaged]
                         old.engaged = -1 #dico a lui che ora è single
-                        if(len(old.partnerList)>0  and old.partnerList[-1]!=p.id):
-                            old.partnerList.append(p.id)
-                            old.yearOfFun.append(tick-old.lastRelation)
-                        else:
-                            if(len(old.partnerList)==0):
-                                    old.partnerList.append(p.id)
-                                    old.yearOfFun.append(tick-old.lastRelation)
-
                     q.engaged = p.id
                     p.engaged = q.id
                     p.pendingOffer = []
                     p.lastRelation = tick
                     q.lastRelation = tick
+                    p.partnerList.append(q.id)
+                    p.yearOfFun.append(0)
+                    q.partnerList.append(p.id)
+                    q.yearOfFun.append(0)
+
 
         for p in self.pm.people:
+            if p.isEngaged():
+                p.yearOfFun[-1]=p.yearOfFun[-1] + 1
+                
             if not p.isEngaged() and p.ego < p.egoMax: #sono single ma sono forte
                 p.incEgoR()
 

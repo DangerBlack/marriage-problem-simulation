@@ -97,4 +97,4 @@ class People:
 
 
     def __str__(self):
-        return "["+str(self.id)+"] sex: "+str(self.sex)+" ego: "+str(self.ego)+"/"+str(self.egoMax)+" init: "+str(self.init)+"/"+str(self.initMax)+" nice: "+str(self.nice)+" partner: "+str(self.engaged)+" RIP?:"+str(self.deadTick)
+        return "["+str(self.id)+"] sex: "+str(self.sex)+" ego: "+str(self.ego)+"/"+str(self.egoMax)+" init: "+str(self.init)+"/"+str(self.initMax)+" nice: "+str(self.nice)+" partner: "+str(self.engaged)+" RIP-in: "+str(self.deadTick)+" longest-rel:"+str(max(self.yearOfFun))
