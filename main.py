@@ -5,6 +5,7 @@ import random as r
 from people import People
 from peopleManager import PeopleManager
 from simulationCore import SimulationCore
+from analitics import Analitics
 
 r.seed(123456) #dbg purpose
 #p = People(0,r.randint(0,10),r.randint(0,10),r.randint(0,1))
@@ -47,3 +48,7 @@ for i in range(0,20):
     print("N partner: "+str(len(p.partnerList)))
     print("Mesi di divertimento: "+str(sum(p.yearOfFun)))
     print("--------------------------------------------------------------------")
+
+a = Analitics()
+
+a.plotYearOfFun(sm.pm)
