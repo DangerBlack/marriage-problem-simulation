@@ -4,6 +4,7 @@ import random as r
 
 from people import People
 from peopleManager import PeopleManager
+from environment import *
 
 class SimulationCore:
     def __init__(self,n,year):
@@ -21,6 +22,8 @@ class SimulationCore:
 
 
     def simulationTick(self,tick):
+        global DEC_EGO_CRONICAL_SINGLE
+        global DEC_EGO_CRONICAL_SINGLE_2
         for p in self.pm.people:
             for i in range(0,3+p.init*2):
                 q = self.pm.getMatingPartner(p,tick)
@@ -54,7 +57,7 @@ class SimulationCore:
         for p in self.pm.people:
             if p.isEngaged():
                 p.yearOfFun[-1]=p.yearOfFun[-1] + 1
-                
+
             if not p.isEngaged() and p.ego < p.egoMax: #sono single ma sono forte
                 p.incEgoR()
 
@@ -62,9 +65,8 @@ class SimulationCore:
                 p.incInit()
 
             if not p.isEngaged() and ((tick - p.lastRelation) %  6) == 0: #piu di sei mesi che non frequenti ragazze/i
-                #p.decEgo()
-                p.decEgo(0)
-                p.decEgo(25)
+                p.decEgo(DEC_EGO_CRONICAL_SINGLE)
+                p.decEgo(DEC_EGO_CRONICAL_SINGLE_2)
             else:
                 if p.isEngaged() and ((tick - p.lastRelation) %  6) == 0: #più di sei mesi che stai con la stessa/o
                     p.decInit()

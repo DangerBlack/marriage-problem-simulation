@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import random as r
+from environment import *
 
 class People:
 
@@ -30,9 +31,10 @@ class People:
         self.like=[0] * n
 
     def initUndefinedLike(self):
+        global MAX_LIKE_LEVEL
         for i in range(0,len(self.like)):
             if(self.like[i] == 0):
-                self.like[i] = r.randint(0,10)
+                self.like[i] = r.randint(0,MAX_LIKE_LEVEL)
 
     def isEngaged(self):
         if(self.engaged != -1):
@@ -41,21 +43,26 @@ class People:
             return False
 
     def incEgoR(self):
-        if self.ego<10 and r.randint(0,100)>80:
+        global INC_EGO_PROBABILTY_RANDOM
+        global MAX_LIKE_LEVEL
+        if self.ego<MAX_LIKE_LEVEL and r.randint(0,100)>INC_EGO_PROBABILTY_RANDOM:
             self.ego = self.ego + 1
-        if self.ego > 10:
-            self.ego = 10
+        if self.ego > MAX_LIKE_LEVEL:
+            self.ego = MAX_LIKE_LEVEL
 
     def incEgo(self,b):
-        if self.ego<10 and r.randint(0,100)>80:
+        global INC_EGO_PROBABILTY_B
+        if self.ego<MAX_LIKE_LEVEL and r.randint(0,100)>INC_EGO_PROBABILTY_B:
             dif = self.like[b.id]-self.ego
             dif = max(1,dif)
             self.ego = self.ego + r.randint(0,dif)
-        if self.ego > 10:
-            self.ego = 10
+        if self.ego > MAX_LIKE_LEVEL:
+            self.ego = MAX_LIKE_LEVEL
 
     def incInit(self):
-        if self.init<10 and r.randint(0,100)>80:
+        global INC_INIT
+        global MAX_LIKE_LEVEL
+        if self.init<MAX_LIKE_LEVEL and r.randint(0,100)>INC_INIT:
             self.init = self.init + 1
 
     def decEgo(self,prob):
@@ -63,7 +70,8 @@ class People:
             self.ego = self.ego - 1
 
     def decInit(self):
-        if self.init>0 and r.randint(0,100)>80:
+        global DEC_INIT
+        if self.init>0 and r.randint(0,100)>DEC_INIT:
             self.init = self.init - 1
 
     def accept(self,b):
@@ -83,6 +91,7 @@ class People:
             return False
 
     def meet(self,b):
+        global DEC_EGO_NOT_ACCEPTED
         if self.accept(b):
             if b.accept(self):
                 self.incEgo(b)
@@ -91,7 +100,7 @@ class People:
                 b.pendingOffer.append(self.id)
             else:
                 b.incEgo(self)
-                self.decEgo(70)
+                self.decEgo(DEC_EGO_NOT_ACCEPTED)
         else:
             pass
 

@@ -3,17 +3,20 @@
 import random as r
 
 from people import People
+from environment import *
 
 class PeopleManager:
 
     def __init__(self,n):
-        self.egoMax = 10
-        self.initMax = 10
+        global MAX_LIKE_LEVEL
+        self.egoMax = MAX_LIKE_LEVEL
+        self.initMax = MAX_LIKE_LEVEL
         self.n = n;
         self.people = []
         self.initPeople(n)
 
     def initPeople(self,n):
+        global MAX_LIKE_LEVEL
         #(self,id,egoMax,initMax,sex):
         ncore = 10 # n/10
         for i in range(0,n):
@@ -22,7 +25,7 @@ class PeopleManager:
             if(len(self.people)>0):
                 for j in range(0,min(ncore,len(self.people))):
                     lover = r.randint(0,len(self.people)-1)
-                    p.like[lover] = r.randint(8,10)
+                    p.like[lover] = r.randint(MAX_LIKE_LEVEL-MAX_LIKE_LEVEL/20,MAX_LIKE_LEVEL)
                     self.people[lover].nice = self.people[lover].nice + p.like[lover]
             p.initUndefinedLike()
             self.people.append(p);
