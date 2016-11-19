@@ -106,4 +106,6 @@ class People:
 
 
     def __str__(self):
-        return "["+str(self.id)+"] sex: "+str(self.sex)+" ego: "+str(self.ego)+"/"+str(self.egoMax)+" init: "+str(self.init)+"/"+str(self.initMax)+" nice: "+str(self.nice)+" partner: "+str(self.engaged)+" RIP-in: "+str(self.deadTick)+" longest-rel:"+str(max(self.yearOfFun))
+        if(len(self.yearOfFun)==0):
+            self.yearOfFun.append(0)
+        return "["+str(self.id)+"] sex: "+str(self.sex)+"\tego: "+str(self.ego)+"/"+str(self.egoMax)+"\tinit: "+str(self.init)+"/"+str(self.initMax)+"\tnice: "+str(self.nice)+"\ttaste: "+str(sum(self.like)/len(self.like))+"\tpartner: "+str(self.engaged)+"\tRIP-in: "+str(self.deadTick)+"\tlongest-rel:"+str(max(self.yearOfFun))

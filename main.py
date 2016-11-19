@@ -16,7 +16,7 @@ r.seed(123456) #dbg purpose
 #for i in range(0,len(pm.people)):
 #    print(pm.people[i])
 
-sm = SimulationCore(100,60)
+sm = SimulationCore(1000,60)
 
 sm.runSimulation()
 print(sm.pm)
@@ -52,3 +52,13 @@ for i in range(0,20):
 a = Analitics()
 
 a.plotYearOfFun(sm.pm)
+a.plotCoupleMonth(sm.end,sm.coupleYear)
+a.plotCorrelation(winner,sm.pm)
+
+print("Correlazione per Ego alto: "+str(a.correlationWinnerEgo(winner,sm.pm)))
+print("Correlazione per Init alta: "+str(a.correlationWinnerInit(winner,sm.pm)))
+print("Correlazione per Ego basso: "+str(a.correlationWinnerEgoLow(winner,sm.pm)))
+print("Correlazione per Init basso: "+str(a.correlationWinnerInitLow(winner,sm.pm)))
+print("Correlazione per Ego*Init alto: "+str(a.correlationWinnerEgoInit(winner,sm.pm)))
+print("Correlazione per ego*Init basso: "+str(a.correlationWinnerEgoInitLow(winner,sm.pm)))
+print("Correlazione per Nice alto: "+str(a.correlationWinnerNice(winner,sm.pm)))

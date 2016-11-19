@@ -5,6 +5,7 @@ import random as r
 from people import People
 from peopleManager import PeopleManager
 from environment import *
+from math import *
 
 class SimulationCore:
     def __init__(self,n,year):
@@ -12,11 +13,12 @@ class SimulationCore:
         self.tick = 0
         self.end = year*12
 
+        self.coupleYear =[]
 
     def runSimulation(self):
         for i in range(1,self.end):
             self.simulationTick(i)
-            self.logInfo(i)
+            #self.logInfo(i)
             #print(self.pm)
 
 
@@ -24,8 +26,10 @@ class SimulationCore:
     def simulationTick(self,tick):
         global DEC_EGO_CRONICAL_SINGLE
         global DEC_EGO_CRONICAL_SINGLE_2
+
+        coupleYearCounter = 0
         for p in self.pm.people:
-            for i in range(0,3+p.init*2):
+            for i in range(0,1+r.randint(0,p.init*int(log(self.end)-log(tick)))): #this number is really ODD!!!
                 q = self.pm.getMatingPartner(p,tick)
                 p.meet(q)
 
@@ -39,7 +43,8 @@ class SimulationCore:
                             self.pm.people[q.engaged].engaged = -1 #dico a lui che ora è single
                             old = self.pm.people[q.engaged]
                         else:
-                            print("lui non sta con me "+str(q.id)+" "+str(self.pm.people[q.engaged].id))
+                            pass
+                            #print("lui non sta con me "+str(q.id)+" "+str(self.pm.people[q.engaged].id))
                     if p.isEngaged:
                         old = self.pm.people[p.engaged]
                         old.engaged = -1 #dico a lui che ora è single
@@ -56,6 +61,7 @@ class SimulationCore:
 
         for p in self.pm.people:
             if p.isEngaged():
+                coupleYearCounter = coupleYearCounter + 1
                 p.yearOfFun[-1]=p.yearOfFun[-1] + 1
 
             if not p.isEngaged() and p.ego < p.egoMax: #sono single ma sono forte
@@ -72,8 +78,9 @@ class SimulationCore:
                     p.decInit()
                     p.incEgo(self.pm.people[p.engaged])
 
-        print("                  "+str(tick)+" month")
-        self.pm.printCouple()
+        #print("                  "+str(tick)+" month")
+        #self.pm.printCouple()
+        self.coupleYear.append(coupleYearCounter)
 
     def logInfo(self,tick):
         single = 0
@@ -83,5 +90,4 @@ class SimulationCore:
                 alive = alive + 1
                 if not p.isEngaged():
                     single = single +1
-
         print('Number of single : '+str(single)+" / "+str(alive))
